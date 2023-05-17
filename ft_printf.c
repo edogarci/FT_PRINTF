@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:54:15 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/17 13:12:12 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:19:32 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,24 @@ static void	ft_read_char_from_str(char const *str, int *letra, int *is_conv)
 static void	ft_printchar(int letra, int *len)
 {
 	printf("%c", letra);
-	len++;
+	(*len)++;
 }
 
 static void	ft_func_type_c(char *str, int *len)
 {
-	printf("Func Type C\n");
+	ft_printchar((int)str[0], len);
 }
 
 static void	ft_func_type_s(char *str, int *len)
 {
-	printf("%s", str);
+	int	pos;
+
+	pos = 0;
+	while (str[pos] != '\0')
+	{
+		ft_printchar((int)str[pos], len);
+		pos++;
+	}
 }
 
 static void	ft_func_type_p(char *str, int *len)
@@ -50,7 +57,7 @@ static void	ft_func_type_d(char *str, int *len)
 
 static void	ft_func_type_i(char *str, int *len)
 {
-	printf("Func Type i\n");
+	printf("test");
 }
 
 static void	ft_func_type_u(char *str, int *len)
@@ -151,6 +158,13 @@ int	ft_printf(char const *str, ...)
 
 int	main(void)
 {
-	ft_printf("str1-%s - %s", "hola2", "test3");
+	void	*ptr;
+	int		num = 324;
+
+	ft_printf("primer param: str1\n");
+	ft_printf("type C: %c\n", "a");
+	ft_printf("type S: %s\n", "hola");
+/* 	ft_printf("typo S: %p\n", ptr); */
+	ft_printf("type I: %i\n", num);
 	return (0);
 }
