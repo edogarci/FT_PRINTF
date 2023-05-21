@@ -6,12 +6,13 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:54:15 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/19 13:42:02 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/21 13:09:57 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	get_number_len(int n)
 {
@@ -36,20 +37,13 @@ static int	get_number_len(int n)
 static int	get_unsigned_len(unsigned int n)
 {
 	int		cont;
-/* 	char	neg;
 
-	neg = ' ';
-	if (n < (unsigned int )0)
-		neg = 'X'; */
 	cont = 1;
 	while (n / 10 != 0)
 	{
 		n = n / 10;
 		cont++;
 	}
-/* 	if (neg == 'X')
-		return (cont + 1);
-	else */
 	return (cont);
 }
 
@@ -88,11 +82,7 @@ static void	iterate_number(int n, int len, char *str)
 static void	iterate_unsigned(unsigned int n, int len, char *str)
 {
 	char	ascii_num;
-/* 	char	neg_flag;
 
-	neg_flag = ' ';
-	if (n < 0)
-		neg_flag = 'X'; */
 	str[len] = '\0';
 	len--;
 	while (len >= 0)
@@ -102,8 +92,6 @@ static void	iterate_unsigned(unsigned int n, int len, char *str)
 		n = n / 10;
 		len--;
 	}
-/* 	if (neg_flag == 'X')
-		str[len] = '-'; */
 }
 
 char	*ft_itoa(int n)
@@ -131,19 +119,6 @@ char	*ft_itounsigned(unsigned int n)
 	iterate_unsigned(n, len, ptr_ret);
 	return (ptr_ret);
 }
-/* 
-char	*ft_ftoa(float n)
-{
-	char	*ptr_ret;
-	int		len;
-
-	len = get_number_len(n);
-	ptr_ret = malloc((len + 1) * sizeof(char));
-	if (!ptr_ret)
-		return (NULL);
-	iterate_number(n, len, ptr_ret);
-	return (ptr_ret);
-} */
 
 //////////////////////////////////////////////////
 static void	ft_read_char_from_str(char const *str, int *letra, int *is_conv)
@@ -177,10 +152,10 @@ static void	ft_print_str(int *str, int *len)
 
 static void	ft_func_type_c(va_list args, int *len)
 {
-	char	*c;
+	int	c;
 
-	c = va_arg(args, char *);
-	ft_printchar((int)(c[0]), len);
+	c = va_arg(args, int);
+	ft_printchar(c, len);
 }
 
 static void	ft_func_type_s(va_list args, int *len)
@@ -189,11 +164,23 @@ static void	ft_func_type_s(va_list args, int *len)
 	char	*str;
 
 	str = va_arg(args, char *);
-	pos = 0;
-	while (str[pos] != '\0')
+	if (!str)
 	{
-		ft_printchar((int)str[pos], len);
-		pos++;
+		ft_printchar('(', len);
+		ft_printchar('n', len);
+		ft_printchar('u', len);
+		ft_printchar('l', len);
+		ft_printchar('l', len);
+		ft_printchar(')', len);
+	}
+	else
+	{
+		pos = 0;
+		while (str[pos] != '\0')
+		{
+			ft_printchar((int)str[pos], len);
+			pos++;
+		}	
 	}
 }
 
@@ -201,7 +188,7 @@ static int ft_get_hex_ptr_len(void *ptr)
 {
 	unsigned long	ul;
 	int				ptr_len;
-	
+
 	ul = (unsigned long)ptr;
 	ptr_len = 0;
 	while (ul > 0)
@@ -215,12 +202,12 @@ static int ft_get_hex_ptr_len(void *ptr)
 static int ft_get_hex_len(unsigned long n)
 {
 	int				hex_len;
-	
+
 	hex_len = 0;
-	while (n > 0)
+	while (n != 0)
 	{
-		n = n / 16;
 		hex_len++;
+		n = n / 16;
 	}
 	return (hex_len);
 }
@@ -235,13 +222,18 @@ static void	ft_func_type_p(va_list args, int *len)
 
 	ptr = va_arg(args, void *);
 	ptr_len = ft_get_hex_ptr_len(ptr) + 2;
+	if (ptr_len < 3)
+		ptr_len = 3;
 	str = (int *)malloc((ptr_len + 1) * sizeof(char));
-/* 	if (!str)
-		return (NULL); */
 	if (str)
 	{
 		str[ptr_len] = '\0';
 		ptr_len--;
+		if (!ptr)
+		{
+			str[ptr_len] = '0';
+			ptr_len--;
+		}
 		ul = (unsigned long)ptr;
 		while (ul != 0)
 		{
@@ -279,13 +271,6 @@ static void	ft_func_type_d(va_list args, int *len)
 	}
 	free(str);
 }
-/* 
-static void	ft_func_type_i(va_list args, int *len)
-{
-	int val;
-	
-	val = va_arg(args, int);
-} */
 
 static void	ft_func_type_u(va_list args, int *len)
 {
@@ -304,48 +289,25 @@ static void	ft_func_type_u(va_list args, int *len)
 	free(str);
 }
 
-static void	ft_func_type_x(va_list args, int *len)
+static void	ft_func_type_x(va_list args, int *len, char format)
 {	
-	int				ptr_len;
-	int				*str;
-	unsigned long	ul;
-	int				resto;
+	int					ptr_len;
+	int					*str;
+	unsigned long long	ul;
+	unsigned long long	resto;
+	char				flag;
 
-	ul = va_arg(args, unsigned long);
-	ptr_len = ft_get_hex_len(ul) + 2;
-	str = (int *)malloc((ptr_len + 1) * sizeof(char));
-	if (str)
+	ul = va_arg(args, unsigned long long);
+	if (ft_get_hex_len(ul) == 0)
 	{
-		str[ptr_len] = '\0';
-		ptr_len--;
-		while (ul != 0)
-		{
-			resto = ul % 16;
-			if (resto < 10)
-				str[ptr_len] = resto + '0';
-			else
-				str[ptr_len] = (resto - 10) + 'a';
-
-			ul = ul / 16;
-			ptr_len--;
-		}
-		str[ptr_len] = 'x';
-		ptr_len--;
-		str[ptr_len] = '0';
-		ft_print_str(str, len);
-		free(str);
+		ptr_len = 1;
+		flag = BOOL_TRUE;
 	}
-}
-
-static void	ft_func_type_x_uppercase(va_list args, int *len)
-{	
-	int				ptr_len;
-	int				*str;
-	unsigned long	ul;
-	int				resto;
-
-	ul = va_arg(args, unsigned long);
-	ptr_len = ft_get_hex_len(ul) + 2;
+	else
+	{
+		ptr_len = ft_get_hex_len(ul);
+		flag = BOOL_FALSE;
+	}
 	str = (int *)malloc((ptr_len + 1) * sizeof(char));
 	if (str)
 	{
@@ -357,14 +319,17 @@ static void	ft_func_type_x_uppercase(va_list args, int *len)
 			if (resto < 10)
 				str[ptr_len] = resto + '0';
 			else
-				str[ptr_len] = (resto - 10) + 'A';
-
+			{
+				if (format == 'x')
+					str[ptr_len] = (resto - 10) + 'a';
+				else if (format == 'X')
+					str[ptr_len] = (resto - 10) + 'A';
+			}
 			ul = ul / 16;
 			ptr_len--;
 		}
-		str[ptr_len] = 'x';
-		ptr_len--;
-		str[ptr_len] = '0';
+		if (flag == BOOL_TRUE)
+			str[ptr_len] = '0';
 		ft_print_str(str, len);
 		free(str);
 	}
@@ -393,33 +358,16 @@ static void	ft_call_conv_func(char *str, va_list args, int *len)
 	else if (conv_type == 'd')
 		ft_func_type_d(args, len);
 	else if (conv_type == 'i')
-/* 		ft_func_type_i(args, len); */
 		ft_func_type_d(args, len);
 	else if (conv_type == 'u')
 		ft_func_type_u(args, len);
 	else if (conv_type == 'x')
-		ft_func_type_x(args, len);
+		ft_func_type_x(args, len, 'x');
 	else if (conv_type == 'X')
-		ft_func_type_x_uppercase(args, len);
+		ft_func_type_x(args, len, 'X');
 	else if (conv_type == '%')
 		ft_func_type_percentage(len);
 }
-
-/* static int	conv_counter(char *str)
-{
-	int	cont;
-	int	pos;
-
-	pos = 0;
-	cont = 0;
-	while (str[pos] != '\0')
-	{
-		if (str[pos] == '%')
-			cont++;
-		pos++;
-	}
-	 return (cont);
-}*/
 
 int	ft_printf(char const *str, ...)
 {
@@ -447,19 +395,11 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	return (len);
 }
-/* 
-int	main(void)
-{
-	char c;
-	char	str[] = "test";
-	float	f;
-	unsigned int un_int = 95;
-	int	*p;
-	int d;
-	
-	d = 0567;
- 	ft_printf("Type U: %d\n", d);
 
+/* int	main(void)
+{
+ 	ft_printf(" %x ", INT_MIN);
+ 	printf(" %x ", INT_MIN);
 	return (0);
 }
-*/
+ */

@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:42:41 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/19 13:33:05 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/21 11:46:13 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 # define BOOL_FALSE ' '
 # define BOOL_TRUE 'X'
