@@ -6,36 +6,40 @@
 #    By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/11 12:07:08 by edogarci          #+#    #+#              #
-#    Updated: 2023/05/22 17:27:09 by edogarci         ###   ########.fr        #
+#    Updated: 2023/05/23 14:02:30 by edogarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-LIBFT_DIR = ./libft
+CC = gcc
+CCFLAGS = -Wall -Wextra -Werror
+AR = ar
+ARFLAGS = rcs
+RM = rm -f
 
-SOURCE = ft_printf.c ft_conv_funcs_01.c
+SRC = ft_conv_funcs_01.c \
+ft_conv_funcs_02.c \
+ft_conv_funcs_03.c \
+ft_conv_funcs_04.c \
+ft_printf.c \
+ft_itoa.c
 
-FLAGS = -Wall -Wextra -Werror
+OBJ = $(SRC:.c=.o)
 
-OBJECTS = $(SOURCE:.c=.o)
+all: $(NAME)
 
-libft:
-	$(MAKELIBFT) -C $(LIBFT_DIR)
+$(NAME): $(OBJ)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 
-all: $(NAME) $(MAKELIBFT)
-
-$(NAME): $(OBJECTS)
-	ar rcs $(NAME) $(OBJECTS)
-
-$(OBJECTS): $(SOURCE)
-	gcc $(FLAGS) -c $(SOURCE)
+%.o: %.c
+	$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(OBJECTS)
+	$(RM) $(OBJ)
 
-fclean:
-	rm -f $(OBJECTS) $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
 re: fclean all
 
