@@ -15,9 +15,9 @@
 void	ft_print_ptr(void *ptr, size_t *len)
 {
 	char			*addrs_str;
-	unsigned long	ptr_addrs;
+	unsigned long long	ptr_addrs;
 
-	ptr_addrs = (unsigned long)ptr;
+	ptr_addrs = (unsigned long long)ptr;
 	addrs_str = ft_convert_to_base(ptr_addrs, HEX_BASE_LOWER);
 	ft_print_str("0x", len);
 	ft_print_str(addrs_str, len);

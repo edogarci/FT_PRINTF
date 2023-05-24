@@ -57,9 +57,9 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	return (len);
 }
-/* 
+
 int	main(void)
 {
 	ft_printf("%c", '0');
 	return (0);
-} */
+}
