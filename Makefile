@@ -5,42 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/11 12:07:08 by edogarci          #+#    #+#              #
-#    Updated: 2023/05/23 14:02:30 by edogarci         ###   ########.fr        #
+#    Created: 2022/10/13 15:40:29 by adiaz-be          #+#    #+#              #
+#    Updated: 2023/05/24 11:41:55 by edogarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME=	libftprintf.a
+
+SRC	=	ft_convert_to_base.c	\
+		ft_print_char.c	\
+		ft_printf.c	\
+		ft_print_hex.c	\
+		ft_print_int.c	\
+		ft_print_ptr.c	\
+		ft_print_str.c	\
+		ft_print_unsigned.c	\
+
+OBJS = $(SRC:.c=.o)
 
 CC = gcc
-CCFLAGS = -Wall -Wextra -Werror
-AR = ar
-ARFLAGS = rcs
-RM = rm -f
+CFLAGS = -Wall -Werror -Wextra
+RM = rm -rf
+AR = ar crs
 
-SRC = ft_conv_funcs_01.c \
-ft_conv_funcs_02.c \
-ft_conv_funcs_03.c \
-ft_conv_funcs_04.c \
-ft_printf.c \
-ft_itoa.c
-
-OBJ = $(SRC:.c=.o)
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
-
-%.o: %.c
-	$(CC) $(CCFLAGS) -c -o $@ $<
-
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJS)
 
-fclean: clean
-	$(RM) $(NAME)
+fclean:	clean
+	$(RM) $(NAME)		
 
-re: fclean all
+re:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY:	all clean fclean re
