@@ -12,6 +12,16 @@
 
 #include "ft_printf.h"
 
+/// @brief Based on character after %, function determines data type
+/// and pass corresponding parameter to function on charge to
+/// translate that type to string format.
+/// @param args Variable containing all given variables
+/// passed to main function FT_PRINTF.
+/// @param str Initial string to read character following %,
+/// so function is able to determine data type.
+/// @param len Stores total len, which is incremented every time a part of
+/// the string
+/// is printed correctly.
 void	ft_call_conv_func(va_list args, char *str, size_t *len)
 {
 	char	c;
@@ -37,6 +47,27 @@ void	ft_call_conv_func(va_list args, char *str, size_t *len)
 		ft_print_char('%', len);
 }
 
+/// @brief Function able to print on screen various types of data:
+/// - Char (%c)
+/// - String (%s)
+/// - Pointer (%p) (void pointer is required)
+/// - Integer (%i)
+/// - Decimal (%d)
+/// - Unsigned (%u)
+/// - Hexadecimal (lowercase %x, uppercase %X)
+/// - '%' character (%%)
+///
+/// It works similar to standard PRINTF function.
+/// 
+/// Code iterates over given string (str param) looking for % character.
+/// When finding one, it checks indicated type after % symbol, and translates
+/// given value for that conversion (... params) to string format.
+///
+/// @example ft_printf("Given values are: %i and %X", int_var, hex_var);
+/// @param str String that contains literal and conversions to fill
+/// (%c, %s, etc.).
+/// @param ... N parameters needed to fill all % in STR parameter.
+/// @return Length of printed string (int type).
 int	ft_printf(char const *str, ...)
 {
 	va_list	args;

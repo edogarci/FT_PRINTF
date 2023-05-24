@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Printf single character on screen.
+/// @param c Single character to be printed.
+/// @param len Total length (increased after printing).
 void	ft_print_char(char c, size_t *len)
 {
 	write(1, &c, 1);

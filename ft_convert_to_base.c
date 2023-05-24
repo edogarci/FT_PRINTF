@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Returns given string length.
+/// @param str String to get length from.
+/// @return Length of string.
 static size_t	ft_str_len(char *str)
 {
 	size_t	pos;
@@ -22,6 +25,10 @@ static size_t	ft_str_len(char *str)
 	return (pos);
 }
 
+/// @brief Returns given number length based on given base values.
+/// @param n Number to process.
+/// @param base Base used to get number length.
+/// @return Length of given number.
 static size_t	ft_num_len(unsigned long long n, char *base)
 {
 	size_t				len;
@@ -37,6 +44,11 @@ static size_t	ft_num_len(unsigned long long n, char *base)
 	return (len);
 }
 
+/// @brief Converts given number to string format using given base.
+/// @param n Number to be transformed to string format.
+/// @param base Base used to convert given number (lowercase HEX |
+/// uppercase HEX | decimal)
+/// @return Given number in string format.
 char	*ft_convert_to_base(unsigned long long n, char *base)
 {
 	int		n_len;

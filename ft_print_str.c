@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Print string characters one by one and increment len.
+/// @param str String to be printed.
+/// @param len Total length (increased after printing).
 void	ft_print_str(char *str, size_t *len)
 {
 	if (!str)

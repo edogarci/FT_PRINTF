@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Converts pointer (void * required) to string and print it.
+/// @param ptr Pointer address to be printed.
+/// @param len Total length (increased after printing).
 void	ft_print_ptr(void *ptr, size_t *len)
 {
 	char				*addrs_str;

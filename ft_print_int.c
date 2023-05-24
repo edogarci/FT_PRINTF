@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Prints integers on screen. It can handle negative values.
+/// @param num Number to be printed.
+/// @param len Total length (increased after printing).
 void	ft_print_int(int num, size_t *len)
 {
 	if (num == -2147483648)

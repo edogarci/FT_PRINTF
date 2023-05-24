@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+/// @brief Converts unsigned numeric value to string format and print it.
+/// @param num Unsigned numeric value to print.
+/// @param len Total length (increased after printing).
 void	ft_print_unsigned(unsigned int num, size_t *len)
 {
 	char	*str;

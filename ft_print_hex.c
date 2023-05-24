@@ -12,6 +12,13 @@
 
 #include "ft_printf.h"
 
+/// @brief Converts hexadecimal value (lowercase or uppercase)
+/// to string format and print it.
+/// @param num Hexadecimal value to be printed.
+/// @param len Total length (increased after printing).
+/// @param base Base to be used:
+/// HEX_BASE_LOWER = '0123456789abcdef' or
+/// HEX_BASE_UPPER = '0123456789ABCDEF'
 void	ft_print_hex(unsigned int num, size_t *len, char *base)
 {
 	char	*str;
