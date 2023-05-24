@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:07:53 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/24 11:57:46 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:26:10 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_print_int(int num, size_t *len)
 	}
 	else if (num < 0)
 	{
-		ft_print_char(SIGN_NEGATIVE, len);
+		ft_print_char('-', len);
 		ft_print_int(num * -1, len);
 	}
 	else

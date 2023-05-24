@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:42:41 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/24 11:56:32 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:25:09 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BOOL_FALSE ' '
-# define BOOL_TRUE 'X'
-# define SIGN_NEGATIVE '-'
-# define SIGN_PERCENTAGE '%'
-# define TYPE_CHAR 'c'
-# define TYPE_STRING 's'
-# define TYPE_POINTER 'p'
-# define TYPE_DECIMAL 'd'
-# define TYPE_INTEGER 'i'
-# define TYPE_UNSIGNED 'u'
-# define TYPE_HEX_LOWER 'x'
-# define TYPE_HEX_UPPER 'X'
-# define TYPE_PERCENTAGE '%'
 # define HEX_BASE_LOWER "0123456789abcdef"
 # define HEX_BASE_UPPER "0123456789ABCDEF"
 # define DEC_BASE "0123456789"
