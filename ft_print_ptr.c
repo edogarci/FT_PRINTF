@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:01:53 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/24 15:22:48 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:44:03 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_print_ptr(void *ptr, size_t *len)
 	char				*addrs_str;
 	unsigned long long	ptr_addrs;
 
-	ptr_addrs = (unsigned long long)ptr;
+	if (ptr == NULL)
+		ptr_addrs = 0;
+	else
+		ptr_addrs = (unsigned long long)ptr;
 	addrs_str = ft_convert_to_base(ptr_addrs, HEX_BASE_LOWER);
 	ft_print_str("0x", len);
 	ft_print_str(addrs_str, len);

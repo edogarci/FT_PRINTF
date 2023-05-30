@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:54:50 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/24 11:48:01 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:50:51 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 /// @param len Total length (increased after printing).
 void	ft_print_str(char *str, size_t *len)
 {
+	int	str_len;
+	int pos;
+
 	if (!str)
 		str = "(null)";
-	while (*str)
+	pos = 0;
+	str_len = ft_str_len(str);
+	while (pos < str_len)
 	{
-		ft_print_char(*str, len);
-		str++;
+		ft_print_char(str[pos], len);
+		pos++;
 	}
 }

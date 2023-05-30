@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_char.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 19:01:52 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/30 10:50:40 by edogarci         ###   ########.fr       */
+/*   Created: 2023/05/30 10:46:11 by edogarci          #+#    #+#             */
+/*   Updated: 2023/05/30 10:51:31 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-/// @brief Printf single character on screen.
-/// @param c Single character to be printed.
-/// @param len Total length (increased after printing).
-void	ft_print_char(char c, size_t *len)
+int	main(void)
 {
-	write(1, &c, 1);
-	(*len)++;
+	int len;
+
+	len = ft_printf(" %p %p ", 0, 0);
+	printf("%i\n", len);
+	len = printf(" %p %p ", 0, 0);
+	printf("%i\n", len);
+	return (0);
 }
