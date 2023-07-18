@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:53:55 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/30 10:50:57 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:45:22 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 /// @param str Initial string to read character following %,
 /// so function is able to determine data type.
 /// @param len Stores total len, which is incremented every time a part of
-/// the string
-/// is printed correctly.
+/// the final string is printed correctly.
 void	ft_call_conv_func(va_list args, char *str, size_t *len)
 {
 	char	c;
@@ -30,7 +29,7 @@ void	ft_call_conv_func(va_list args, char *str, size_t *len)
 	if (c == 'c')
 		ft_print_char(va_arg(args, int), len);
 	else if (c == 's')
-		ft_print_str(va_arg(args, char *), len);
+		ft_print_str(va_arg(args, char *), len, c);
 	else if (c == 'p')
 		ft_print_ptr(va_arg(args, void *), len);
 	else if (c == 'i')

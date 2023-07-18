@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:33:06 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/30 10:50:42 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:12:53 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,5 @@
 /// HEX_BASE_UPPER = '0123456789ABCDEF'
 void	ft_print_hex(unsigned int num, size_t *len, char *base)
 {
-	char	*str;
-
-	str = ft_convert_to_base(num, base);
-	ft_print_str(str, len);
-	free(str);
+	ft_conv_base(num, base, len, 'h');
 }

@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:11:10 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/30 12:45:51 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:44:23 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,41 @@ static size_t	ft_num_len(unsigned long long n, char *base)
 	return (len);
 }
 
+/// @brief Set string to null or 0
+/// @param str String to set
+static void	ft_set_str_null(char *str)
+{
+	if (str)
+	{
+		str[0] = '0';
+		str[1] = '\0';
+	}
+	else
+		str = NULL;
+}
+
+/// @brief Ends string with null character '\0'
+/// @param n_len Last position in string
+/// @param str String
+static void	ft_init_str_value(int *n_len, char *str)
+{
+	if (!str)
+	{
+		str = NULL;
+	}
+	else
+	{
+		str[*n_len] = '\0';
+		(*n_len)--;
+	}
+}
+
 /// @brief Converts given number to string format using given base.
 /// @param n Number to be transformed to string format.
 /// @param base Base used to convert given number (lowercase HEX |
 /// uppercase HEX | decimal)
 /// @return Given number in string format.
-char	*ft_convert_to_base(unsigned long long n, char *base)
+void	ft_conv_base(unsigned long long n, char *base, size_t *len, char type)
 {
 	int		n_len;
 	int		base_len;
@@ -60,25 +89,20 @@ char	*ft_convert_to_base(unsigned long long n, char *base)
 	n_len = ft_num_len(n, base) - 1;
 	if (n_len <= 0)
 	{
-		n_len = 0;
 		str = malloc((2) * sizeof(char));
-		str[0] = '0';
-		str[1] = '\0';
+		ft_set_str_null(str);
 	}
 	else
 	{
 		str = malloc((n_len + 1) * sizeof(char));
-		if (!str)
-			return (NULL);
-		str[n_len] = '\0';
-		n_len--;
+		ft_init_str_value(&n_len, str);
 		while (n_len >= 0)
 		{
 			digit = n % base_len;
 			n = n / base_len;
-			str[n_len] = base[digit];
-			n_len--;
+			str[n_len--] = base[digit];
 		}
 	}
-	return (str);
+	ft_print_str(str, len, type);
+	free(str);
 }

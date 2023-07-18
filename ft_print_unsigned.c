@@ -6,7 +6,7 @@
 /*   By: edogarci <edogarci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 11:29:12 by edogarci          #+#    #+#             */
-/*   Updated: 2023/05/30 10:50:53 by edogarci         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:13:19 by edogarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,5 @@
 /// @param len Total length (increased after printing).
 void	ft_print_unsigned(unsigned int num, size_t *len)
 {
-	char	*str;
-
-	str = ft_convert_to_base(num, DEC_BASE);
-	ft_print_str(str, len);
-	free(str);
+	ft_conv_base(num, DEC_BASE, len, 'u');
 }
